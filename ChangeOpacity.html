@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChangeOpacity</title>
+    <style>
+        #img1 {
+            filter: alpha(opacity:30); /* IE */
+            opacity: 0.3; /* Chrome Firefox */
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oImg = document.getElementById('img1');
+
+            oImg.onmouseover = function () {
+                startMove(100);
+            };
+            oImg.onmouseout = function () {
+                startMove(30);
+            };
+        };
+
+        var opacity = 30;// 因為透明度沒有辦法直接獲取，因此用一個變數儲存每一次需要改變的數值，再把不透明度設定回去
+        var timer = null;
+
+        function startMove(iTarget) {
+            var oImg = document.getElementById('img1');
+
+            clearInterval(timer);
+            timer = setInterval(function () {
+                var speed = 0;
+
+                if (opacity < iTarget) {
+                    speed = 10;
+                } else {
+                    speed = -10;
+                }
+
+                if (opacity === iTarget) {
+                    clearInterval(timer);
+                } else {
+                    opacity += speed;
+
+                    oImg.style.filter = 'alpha(opacity:' + opacity + ')';// IE
+                    oImg.style.opacity = opacity / 100;// Chrome Firefox
+                }
+            }, 30);
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <img id="img1" width="800" height="600" src="ChangeOpacityImg/1.jpg">
+</div>
+</body>
+</html>
