@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>同時點擊左右鍵</title>
+    <script>
+        let tr = 0;
+        let tf = 0;
+        let isSingleLeft = null;
+        let isSingleRight = null;
+
+        function mouseDownTest(e) {
+            switch (e.button) {
+                case 0:
+                    tf = Date.now();
+                    if (tr !== 0) {
+                        if (tf - tr < 100) {
+                            clearTimeout(isSingleRight);
+                            isSingleRight = null;
+                            document.getElementById("msg").innerHTML = "雙墼";
+                        }
+                    } else {
+                        isSingleLeft = setTimeout(() => {
+                            document.getElementById("msg").innerHTML = "左鍵單點";
+                        }, 100)
+                    }
+                    break;
+                case 2:
+                    tr = Date.now();
+                    if (tf !== 0) {
+                        if (tr - tf < 100) {
+                            clearTimeout(isSingleLeft);
+                            isSingleLeft = null;
+                            document.getElementById("msg").innerHTML = "雙墼";
+                        }
+                    } else {
+                        isSingleRight = setTimeout(() => {
+                            document.getElementById("msg").innerHTML = "右鍵單點";
+                        }, 100)
+                    }
+                    break;
+            }
+        }
+
+        function mouseUpTest(e) {
+            switch (e.button) {
+                case 0:
+                    tf = 0;
+                    document.getElementById("msg").innerHTML = "";
+                    break;
+                case 2:
+                    tr = 0;
+                    document.getElementById("msg").innerHTML = "";
+                    break;
+            }
+        }
+
+        window.onload = () => {
+            let oDiv = document.getElementById("game");
+
+            oDiv.oncontextmenu = ev => false;
+            oDiv.onselectstart = ev => false;
+
+            oDiv.addEventListener("mousedown", mouseDownTest);
+            oDiv.addEventListener("mouseup", mouseUpTest);
+        };
+    </script>
+</head>
+<body>
+
+<span id="msg"></span>
+<div id="game" style="width: 300px;height:300px;background: red"></div>
+
+</body>
+</html>
