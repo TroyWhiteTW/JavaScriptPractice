@@ -1,8 +1,10 @@
-// sMethod String 'GET' or 'POST'
-// sUrl String
-// oParameter JSON
-// fSuccessCallBack callback function
-// fFailCallBack callback function optional
+/**
+ * @param sMethod {string} 'GET' or 'POST'
+ * @param sUrl {string}
+ * @param oParameter {JSON}
+ * @param fSuccessCallBack {function} callback function
+ * @param fFailCallBack {function} callback function optional
+ */
 function ajax(sMethod, sUrl, oParameter, fSuccessCallBack, fFailCallBack) {
     // if (sMethod !== 'GET' || sMethod !== 'POST') {
     //     return 'method error!!';
