@@ -4,39 +4,43 @@
     <meta charset="UTF-8">
     <title>同時點擊左右鍵</title>
     <script>
-        let tr = 0;
-        let tf = 0;
+        let timeRightButton = 0;
+        let timeLeftButton = 0;
         let isSingleLeft = null;
         let isSingleRight = null;
 
         function mouseDownTest(e) {
             switch (e.button) {
                 case 0:
-                    tf = Date.now();
-                    if (tr !== 0) {
-                        if (tf - tr < 100) {
+                    timeLeftButton = Date.now();
+                    if (timeRightButton !== 0) {
+                        if (timeLeftButton - timeRightButton < 100) {
                             clearTimeout(isSingleRight);
                             isSingleRight = null;
-                            document.getElementById("msg").innerHTML = "雙墼";
+                            // 雙擊
+                            document.getElementById("msg").innerHTML = "雙擊";
                         }
                     } else {
                         isSingleLeft = setTimeout(() => {
+                            // 左鍵單點
                             document.getElementById("msg").innerHTML = "左鍵單點";
-                        }, 100)
+                        }, 100);
                     }
                     break;
                 case 2:
-                    tr = Date.now();
-                    if (tf !== 0) {
-                        if (tr - tf < 100) {
+                    timeRightButton = Date.now();
+                    if (timeLeftButton !== 0) {
+                        if (timeRightButton - timeLeftButton < 100) {
                             clearTimeout(isSingleLeft);
                             isSingleLeft = null;
-                            document.getElementById("msg").innerHTML = "雙墼";
+                            // 雙擊
+                            document.getElementById("msg").innerHTML = "雙擊";
                         }
                     } else {
                         isSingleRight = setTimeout(() => {
+                            // 右鍵單點
                             document.getElementById("msg").innerHTML = "右鍵單點";
-                        }, 100)
+                        }, 100);
                     }
                     break;
             }
@@ -45,11 +49,11 @@
         function mouseUpTest(e) {
             switch (e.button) {
                 case 0:
-                    tf = 0;
+                    timeLeftButton = 0;
                     document.getElementById("msg").innerHTML = "";
                     break;
                 case 2:
-                    tr = 0;
+                    timeRightButton = 0;
                     document.getElementById("msg").innerHTML = "";
                     break;
             }
