@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let ws = new WebSocket('ws://localhost:12345/');
+    ws.onopen = e => {
+        console.log("Connection open ...");
+        ws.send("Hello WebSockets!");
+    };
+    ws.onmessage = e => {
+        console.log("Received Message: " + e.data);
+        ws.close();
+    };
+    // setTimeout(() => {
+    //     ws.close();
+    // }, 5000);
+
+    ws.onclose = e => {
+        console.log("Connection closed.");
+    };
+</script>
+</body>
+</html>
